@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="apMandelbrot" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mandelbrot.MandelbrotController">
+   <children>
+      <Canvas fx:id="canvas" height="431.0" layoutX="26.0" layoutY="88.0" width="755.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="88.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Canvas>
+      <HBox layoutX="27.0" layoutY="14.0" spacing="30.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Eigene Parameter:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <VBox spacing="10.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Re cA">
+                           <HBox.margin>
+                              <Insets right="10.0" top="5.0" />
+                           </HBox.margin>
+                        </Text>
+                        <TextField fx:id="tfAa" prefHeight="25.0" prefWidth="60.0" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Im cA">
+                           <HBox.margin>
+                              <Insets right="10.0" top="5.0" />
+                           </HBox.margin>
+                        </Text>
+                        <TextField fx:id="tfBa" prefHeight="25.0" prefWidth="60.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox spacing="10.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Re cE">
+                           <HBox.margin>
+                              <Insets right="10.0" top="5.0" />
+                           </HBox.margin>
+                        </Text>
+                        <TextField fx:id="tfAe" prefHeight="25.0" prefWidth="60.0" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Im cE">
+                           <HBox.margin>
+                              <Insets right="10.0" top="5.0" />
+                           </HBox.margin>
+                        </Text>
+                        <TextField fx:id="tfBe" prefHeight="25.0" prefWidth="60.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rekursionstiefe">
+                     <HBox.margin>
+                        <Insets right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="tfDepth" prefHeight="25.0" prefWidth="60.0" />
+               </children>
+               <padding>
+                  <Insets top="17.0" />
+               </padding>
+            </HBox>
+            <Button fx:id="btnUebernehmen" mnemonicParsing="false" onAction="#handleUebernehmen" text="Uebernehmen" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets top="17.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutX="27.0" layoutY="543.0" prefHeight="43.0" prefWidth="651.0" spacing="80.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gespeicherte Dateien laden:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <HBox prefHeight="39.0" prefWidth="420.0">
+               <HBox.margin>
+                  <Insets right="10.0" top="5.0" />
+               </HBox.margin>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dateiname">
+                     <HBox.margin>
+                        <Insets right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="tfFileName" prefHeight="22.0" prefWidth="218.0" />
+                  <Button mnemonicParsing="false" onAction="#handleLaden" text="laden">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
