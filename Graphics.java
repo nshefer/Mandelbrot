@@ -76,9 +76,9 @@ public class Graphics {
         double be = calculations.getBe();
                 
         // this should be right canvas width
-        int width = 600;
+        int width = (int) canvas.getWidth();
         // this should be right canvas height
-        int height = 600;
+        int height = (int) canvas.getHeight();
 
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
