@@ -145,29 +145,15 @@ public class MandelbrotController implements Initializable {
                 calcus.get(i).setBe(Double.parseDouble(beString));
                 calcus.get(i).setDepth(Integer.parseInt(depthString));
 
-                //graphics.setCalculations(calcus.get(i));
-                //graphics.draw();//(calculations);
-                //wait(60);
-
             }
         } catch (FileNotFoundException fnfEx) {
             fnfEx.printStackTrace();
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
-            //} catch (InterruptedException intEx){
-            //intEx.getMessage();
-        }
 
-        /*
-        final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        for (int i = 0; i < 3; i++){
-            executorService.scheduleAtFixedRate(drawFromFile(calcus), 0, 1, TimeUnit.SECONDS);
         }
-        */
 
         schedule(calcus);
-
-        //drawFromFile(calcus);
 
     }
 
@@ -206,16 +192,10 @@ public class MandelbrotController implements Initializable {
 
     @ FXML
     public void handleUebernehmen(){
-        /*works only when first load from file
-        if (th.isAlive() && !th.isInterrupted()) {
+        //works only when first load from file
+        if (th != null && th.isAlive() && !th.isInterrupted()) {
             th.interrupt();
         }
-        */
-
-        //if (th.isAlive()) {
-            th.interrupt();
-        //}
-
 
         int hoehe = (int) canvas.getHeight();
         int breite = (int) canvas.getWidth();
@@ -240,6 +220,9 @@ public class MandelbrotController implements Initializable {
 
     @ FXML
     public void handleLaden(){
+        if (th != null && th.isAlive() && !th.isInterrupted()) {
+            th.interrupt();
+        }
         fileName = tfFileName.getText();
         readParameters();
     }
