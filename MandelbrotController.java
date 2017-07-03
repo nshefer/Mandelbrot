@@ -1,6 +1,7 @@
 package mandelbrot;
 
-
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -38,8 +40,7 @@ public class MandelbrotController implements Initializable {
     private Calculations calculations = new Calculations();
     private Graphics graphics;// = new Graphics(canvas, calculations);
     private GraphicsContext graphicsContext; //= canvas.getGraphicsContext2D();
-   
-    
+    private Thread th;
     private String fileName;
     
     public void setGraphicsContext(GraphicsContext graphicsContext){
@@ -66,7 +67,7 @@ public class MandelbrotController implements Initializable {
             handleLaden();
         }
     }
-    
+    /*
     public void readParameters(){
         
         String aaString = "";
@@ -155,10 +156,36 @@ public class MandelbrotController implements Initializable {
             graphics.setCalculations(calcus.get(0));
             graphics.draw();//(calculations);
             calcus.add(calcus.remove(0));
-
     }
-    
-    @ FXML 
+
+    private void schedule(ArrayList<Calculations> calcus){
+        Task task = new Task<Void>() {
+            @Override
+            public Void call() throws Exception {
+                for (int i = 0; i <100; i++) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            drawFromFile(calcus);
+                        }
+                    });
+
+                    Thread.sleep(3200);
+
+                }
+                return null;
+            }
+        };
+        th = new Thread(task);
+        th.setDaemon(true);
+        th.start();
+
+    };
+
+
+
+
+    @ FXML
     public void handleUebernehmen(){
 
         //works only when first load from file
