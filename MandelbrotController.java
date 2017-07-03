@@ -102,17 +102,70 @@ public class MandelbrotController implements Initializable {
             fnfEx.printStackTrace();
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
-        /*    
-        } catch (InterruptedException intEx){
-            intEx.getMessage();
-*/
+
+
+            //} catch (InterruptedException intEx){
+            //intEx.getMessage();
         }
-       
+    }
+    */
+    public void readParameters(){
+
+        ArrayList<Calculations> calcus = new ArrayList<>();
+        calcus.add(new Calculations());
+        calcus.add(new Calculations());
+        calcus.add(new Calculations());
+
+
+        String aaString;
+        String baString;
+        String aeString;
+        String beString;
+        String depthString;
+
+        try (FileReader fr = new FileReader(fileName); BufferedReader br = new BufferedReader(fr)) {
+
+            for (int i = 0; i < 3; i++){
+
+                aaString = br.readLine();
+                baString = br.readLine();
+                aeString = br.readLine();
+                beString = br.readLine();
+                depthString = br.readLine();
+
+                calcus.get(i).setAa(Double.parseDouble(aaString));
+                calcus.get(i).setBa(Double.parseDouble(baString));
+                calcus.get(i).setAe(Double.parseDouble(aeString));
+                calcus.get(i).setBe(Double.parseDouble(beString));
+                calcus.get(i).setDepth(Integer.parseInt(depthString));
+
+            }
+        } catch (FileNotFoundException fnfEx) {
+            fnfEx.printStackTrace();
+        } catch (IOException ioEx) {
+            ioEx.printStackTrace();
+
+        }
+
+        schedule(calcus);
+
+    }
+
+    private void drawFromFile(ArrayList<Calculations> calcus){
+            graphics.setCalculations(calcus.get(0));
+            graphics.draw();//(calculations);
+            calcus.add(calcus.remove(0));
+
     }
     
     @ FXML 
     public void handleUebernehmen(){
-        
+
+        //works only when first load from file
+        if (th != null && th.isAlive() && !th.isInterrupted()) {
+            th.interrupt();
+        }
+
         int hoehe = (int) canvas.getHeight();
         int breite = (int) canvas.getWidth();
         graphicsContext.clearRect(0, 0, breite, hoehe);
@@ -145,10 +198,12 @@ public class MandelbrotController implements Initializable {
             
         }
     }
-    
-    @ FXML 
-    public void handleLaden(){   
-        
+
+    @ FXML
+    public void handleLaden(){
+        if (th != null && th.isAlive() && !th.isInterrupted()) {
+            th.interrupt();
+        }
         fileName = tfFileName.getText();
         
         if(fileName.equals("")){
