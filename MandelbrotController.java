@@ -15,7 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * FXML Controller class
@@ -211,6 +213,14 @@ public class MandelbrotController implements Initializable {
                 || depthString.isEmpty()){
             
             lblErrorParams.setText("Parameter fehlen");
+
+        if(!(stringIsDouble(aaString)
+                ||stringIsDouble(baString)
+                ||stringIsDouble(aeString)
+                ||stringIsDouble(beString)
+                ||stringIsNaturalNumber(depthString))){
+            lblErrorParams.setText("falsche Werte");
+        }
             
         }else{
         
@@ -245,7 +255,7 @@ public class MandelbrotController implements Initializable {
     
     /**
      * Ueberprueft ob der File existiert in Projekt Directory.
-     * @param file Filename mit Extension, den Pfad braucht man nicht
+     * @param fileName Filename mit Extension, den Pfad braucht man nicht
      * @return true or false
      */
     public static boolean checkIfFileExists(String fileName) {
@@ -270,6 +280,72 @@ public class MandelbrotController implements Initializable {
 
         }
         return fileExists;
+    }
+
+    public static boolean stringIsDouble(String string){
+
+        int pointCounter = 0;
+        char c = string.charAt(0);
+        Set<Character> numbers= new HashSet<>();
+
+        numbers.add('0');
+        numbers.add('1');
+        numbers.add('2');
+        numbers.add('3');
+        numbers.add('4');
+        numbers.add('5');
+        numbers.add('6');
+        numbers.add('7');
+        numbers.add('8');
+        numbers.add('9');
+
+        if(!(((c) == '-') || (numbers.contains(c)))){
+            return false;
+        }
+
+        for(int i = 1; i < string.length(); i++){
+            c = string.charAt(i);
+            if(c == '.'){
+                if(pointCounter ==1){
+                    return false;
+                } else {
+                    pointCounter++;
+                }
+            } else if (!(numbers.contains(c))) {
+                return false;
+            }
+        }
+
+        if(string.charAt(string.length() - 1) == '.'){
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean stringIsNaturalNumber(String string){
+
+        char c = string.charAt(0);
+        Set<Character> numbers= new HashSet<>();
+
+        numbers.add('0');
+        numbers.add('1');
+        numbers.add('2');
+        numbers.add('3');
+        numbers.add('4');
+        numbers.add('5');
+        numbers.add('6');
+        numbers.add('7');
+        numbers.add('8');
+        numbers.add('9');
+
+        for(int i = 0; i < string.length(); i++){
+            if(!numbers.contains(string.charAt(i))){
+                return false;
+            }
+        }
+
+        return true;
     }
     
     
