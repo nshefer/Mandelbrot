@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="apMandelbrot" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mandelbrot.MandelbrotController">
+<AnchorPane id="AnchorPane" fx:id="apMandelbrot" minHeight="600.0" minWidth="800.0" maxHeight="600.0" maxWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mandelbrot.MandelbrotController">
    <children>
-      <Canvas fx:id="canvas" height="431.0" layoutX="26.0" layoutY="88.0" width="755.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="88.0">
+      <Canvas fx:id="canvas" height="432.0" layoutX="26.0" layoutY="88.0" width="747.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="88.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Canvas>
