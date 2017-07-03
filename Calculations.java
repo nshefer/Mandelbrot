@@ -37,7 +37,7 @@ public class Calculations {
      * Depth of iterations. (= "Iterationstiefe")
      */
     private int depth;
-
+    
     public double getAa(){
         return aa;
     }
@@ -61,19 +61,19 @@ public class Calculations {
     public void setAa(double aa){
         this.aa = aa;
     }
-
+    
     public void setBa(double ba){
         this.ba = ba;
     }
-
+    
     public void setAe(double ae){
         this.ae = ae;
     }
-
+    
     public void setBe(double be){
         this.be = be;
     }
-
+    
     public void setDepth(int depth){
         this.depth = depth;
     }

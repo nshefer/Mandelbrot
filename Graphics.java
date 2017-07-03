@@ -2,14 +2,13 @@ package mandelbrot;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
-//import java.awt.Color;
-
 
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import javafx.scene.image.PixelWriter;
+//import java.awt.Color;
 
 /**
  * Created by Nati on 22.06.2017.
@@ -24,19 +23,19 @@ public class Graphics {
         this.canvas = canvas;
         graphicsContext = canvas.getGraphicsContext2D();
         this.calculations = calculations;
-        //setColors();
+        setColors();
     }
 
     private void setColors() {
         colors = new Color[calculations.getDepth() + 1];
         Random random = new Random();
-        for (int i = 0; i < calculations.getDepth() + 1; i++) {
+        for (int i = 0; i < calculations.getDepth(); i++){
             colors[i] = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1);
         }
 
     }
-
-    public void setCalculations(Calculations calculations) {
+    
+    public void setCalculations(Calculations calculations){
         this.calculations = calculations;
     }
 
@@ -66,19 +65,20 @@ public class Graphics {
 
     }
     */
-
-    public void draw() {//(Calculations calculations) {
-
+    
+    public void draw(){//(Calculations calculations) {
+        
         setColors();
+        
         double aa = calculations.getAa();
-        double ba = calculations.getBa();
-        double ae = calculations.getAe();
+        double ba = calculations.getBa(); 
+        double ae = calculations.getAe(); 
         double be = calculations.getBe();
-
+                
         // this should be right canvas width
-        int width = (int) canvas.getWidth();
+        int width = 600;
         // this should be right canvas height
-        int height = (int) canvas.getHeight();
+        int height = 600;
 
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -89,10 +89,10 @@ public class Graphics {
 
         PixelWriter pw = canvas.getGraphicsContext2D().getPixelWriter();
         int colorCode;
-        for (int y = 0; y < canvas.getHeight(); y++) {
-            for (int x = 0; x < canvas.getWidth(); x++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 colorCode = calculations.isElement(x, y, width, height);
-                pw.setColor(x, y, colors[colorCode]);
+                pw.setColor(x, y,colors[colorCode]);
             }
         }
 
