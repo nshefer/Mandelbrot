@@ -97,7 +97,7 @@ public class MandelbrotController implements Initializable {
     /**
      * Craphics include methods to draw the Mandelbrot-set.
      */
-    private Graphics graphics;// = new Graphics(canvas, calculations);
+    private Graphics graphics;
 
     /**
      * Tool to draw on canvas.
@@ -113,6 +113,7 @@ public class MandelbrotController implements Initializable {
      * Filename of loaded file.
      */
     private String fileName;
+    
 
     /**
      * Setter for graphicsContext.
@@ -127,12 +128,10 @@ public class MandelbrotController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         graphics = new Graphics(canvas, calculations);
         graphicsContext = canvas.getGraphicsContext2D();
-        
-        //canvas.widthProperty().bind(apMandelbrot.widthProperty());
-        //canvas.heightProperty().bind(apMandelbrot.heightProperty());
-        
+      
     }
 
     /**
@@ -146,50 +145,7 @@ public class MandelbrotController implements Initializable {
             handleLaden();
         }
     }
-    /*
-    public void readParameters(){
-        
-        String aaString = "";
-        String baString = "";
-        String aeString = "";
-        String beString = "";
-        String depthString = "";
-        
-        //File file = new File(fileName);
-        
-        try (FileReader fr = new FileReader(fileName); BufferedReader br = new BufferedReader(fr)) {
-
-            for (int i = 0; i < 3; i++){
-                
-                aaString = br.readLine();
-                baString = br.readLine();
-                aeString = br.readLine();
-                beString = br.readLine();
-                depthString = br.readLine();
-                
-                calculations.setAa(Double.parseDouble(aaString));
-                calculations.setBa(Double.parseDouble(baString));
-                calculations.setAe(Double.parseDouble(aeString));
-                calculations.setBe(Double.parseDouble(beString));
-                calculations.setDepth(Integer.parseInt(depthString));
-
-                graphics.setCalculations(calculations);
-                graphics.draw();//(calculations);
-                //wait(60);
-
-            }
-        } catch (FileNotFoundException fnfEx) {
-            fnfEx.printStackTrace();
-        } catch (IOException ioEx) {
-            ioEx.printStackTrace();
-
-
-            //} catch (InterruptedException intEx){
-            //intEx.getMessage();
-        }
-    }
-    */
-
+  
     /**
      * Reading parameters from the file and calling draw-function.
      */
@@ -289,23 +245,33 @@ public class MandelbrotController implements Initializable {
         int breite = (int) canvas.getWidth();
         graphicsContext.clearRect(0, 0, breite, hoehe);
         
+        
         String aaString = tfAa.getText();
         String baString = tfBa.getText();
         String aeString = tfAe.getText();
         String beString = tfBe.getText();
         String depthString = tfDepth.getText();
+        
+        String[] params = {aaString, baString, aeString, beString};
         //System.out.println(aaString);
         
-        if(aaString.isEmpty() 
-                || baString.isEmpty()
-                || aeString.isEmpty()
-                || beString.isEmpty()
-                || depthString.isEmpty()){
-            
-            lblErrorParams.setText("Parameter fehlen");
-            
-        }else{
+        for(int i = 0; i < 4; i++){
+            if(params[i].isEmpty()){
+                lblErrorParams.setText("Parameter fehlen");
+                return;
+            }
+        }
         
+        if(depthString.isEmpty()){
+            lblErrorParams.setText("Parameter fehlen");
+            return;
+        }else if(!allFloats(params)){
+            lblErrorParams.setText("Falsche Eingabewerte");
+            return;
+        }else{  
+            
+            lblErrorParams.setText("Parameter uebernommen");
+      
             calculations.setAa(Double.parseDouble(aaString));
             calculations.setBa(Double.parseDouble(baString));
             calculations.setAe(Double.parseDouble(aeString));
@@ -313,9 +279,9 @@ public class MandelbrotController implements Initializable {
             calculations.setDepth(Integer.parseInt(depthString));
 
             graphics.setCalculations(calculations);
-            graphics.draw();//(calculations);
-            
+            graphics.draw();         
         }
+
     }
 
     /**
@@ -366,6 +332,59 @@ public class MandelbrotController implements Initializable {
         }
         return fileExists;
     }
+    
+    public boolean allFloats(String[] floatStrings){
+        
+        for(int i = 0; i < floatStrings.length; i++){
+            if(!floatStrings[i].matches("^([+-]?(\\d+\\.)?\\d+)$")){
+                return false;
+            }
+        }
+        
+        return true;
+        
+    }
+    
+    
+    /*
+    public boolean readFloat(TextField tf, float f, Label lbl){
+        
+        String input = tf.getText();
+        
+        if(input.isEmpty()){
+            f = 0;
+            lbl.setText("Parameter fehlen");
+            return false;
+        }else if(input.matches("^([+-]?(\\d+\\.)?\\d+)$")){
+            f = Float.parseFloat(input);
+            lbl.setText("Parameter uebernommen");
+            return true;
+        } else {
+            f = 0;
+            lbl.setText("Falsche Eingabewerte");
+            return false;
+        }       
+    }
+    
+    public boolean readInt(TextField tf, int i, Label lbl){
+        
+        String input = tf.getText();
+        
+        if(input.isEmpty()){
+            i = 0;
+            lbl.setText("Parameter fehlen");
+            return false;
+        }else if(input.matches("[-+]?([0-9]*)")){
+            i = Integer.parseInt(input);
+            lbl.setText("Parameter uebernommen");
+            return true;
+        } else {
+            i = 0;
+            lbl.setText("Falsche Eingabewerte");
+            return false;
+        }       
+    }
+*/
     
     
 }
