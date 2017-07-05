@@ -192,8 +192,8 @@ public class MandelbrotController implements Initializable {
     }
 
     /**
-     * Calling draw-mehod when loading data from file.
-     * @param calcus Arrray-list of data for Mandelbrot-sets
+     * Calling draw-method when loading data from file.
+     * @param calcus Array-list of data for Mandelbrot-sets
      */
     private void drawFromFile(ArrayList<Calculations> calcus){
             graphics.setCalculations(calcus.get(0));
@@ -332,6 +332,12 @@ public class MandelbrotController implements Initializable {
         }
         return fileExists;
     }
+
+    /**
+     * Checks if all entries of an array of strings can be parsed to Float
+     * @param floatStrings - Array of floats
+     * @return true, if every entry represents a float-number
+     */
     
     public boolean allFloats(String[] floatStrings){
         
@@ -344,47 +350,7 @@ public class MandelbrotController implements Initializable {
         return true;
         
     }
-    
-    
-    /*
-    public boolean readFloat(TextField tf, float f, Label lbl){
-        
-        String input = tf.getText();
-        
-        if(input.isEmpty()){
-            f = 0;
-            lbl.setText("Parameter fehlen");
-            return false;
-        }else if(input.matches("^([+-]?(\\d+\\.)?\\d+)$")){
-            f = Float.parseFloat(input);
-            lbl.setText("Parameter uebernommen");
-            return true;
-        } else {
-            f = 0;
-            lbl.setText("Falsche Eingabewerte");
-            return false;
-        }       
-    }
-    
-    public boolean readInt(TextField tf, int i, Label lbl){
-        
-        String input = tf.getText();
-        
-        if(input.isEmpty()){
-            i = 0;
-            lbl.setText("Parameter fehlen");
-            return false;
-        }else if(input.matches("[-+]?([0-9]*)")){
-            i = Integer.parseInt(input);
-            lbl.setText("Parameter uebernommen");
-            return true;
-        } else {
-            i = 0;
-            lbl.setText("Falsche Eingabewerte");
-            return false;
-        }       
-    }
-*/
+
     
     
 }

@@ -32,48 +32,76 @@ public class Calculations {
     /**
      * Depth of iterations. (= "Iterationstiefe")
      */
+    private int depth;
 
     /**
-     * Depth of iterations. (= "Iterationstiefe")
+     * Getter for aa
+     * @return aa
      */
-    private int depth;
-    
     public double getAa(){
         return aa;
     }
 
+    /**
+     * Getter for ba
+     * @return ba
+     */
     public double getBa(){
         return ba;
     }
 
+    /**
+     * Getter for ae
+     * @return ae
+     */
     public double getAe(){
         return ae;
     }
 
+    /**
+     * Getter for be
+     * @return be
+     */
     public double getBe(){
         return be;
     }
 
-    public int getDepth(){
-        return depth;
-    }
-
+    /**
+     * Setter for aa
+     * @param aa - real part of ca
+     */
     public void setAa(double aa){
         this.aa = aa;
     }
-    
+
+    /**
+     * Setter for ba
+     * @param ba - imaginary part of ca
+     */
     public void setBa(double ba){
         this.ba = ba;
     }
-    
+
+    /**
+     * Setter for ae
+     * @param ae - real part of ce
+     */
     public void setAe(double ae){
         this.ae = ae;
     }
-    
+
+    /**
+     * Setter for be
+     * @param be - imaginary part of ce
+     */
     public void setBe(double be){
         this.be = be;
     }
-    
+
+    /**
+     * Setter for depth
+     * @param depth - Iteration depth
+     */
     public void setDepth(int depth){
         this.depth = depth;
     }
@@ -103,11 +131,23 @@ public class Calculations {
         return depth - 1;
     }
 
-    public double calculateA(int width, int x){
+    /**
+     * A is a double number used in isElement(int, int, int, int)
+     * @param width - Width of the canvas
+     * @param x - x-coordinate on the canvas
+     * @return A
+     */
+    private double calculateA(int width, int x){
         return ((ae - aa) / width) * x + aa;
     }
 
-    public double calculateB(int height, int y){
+    /**
+     * B is a double number used in isElement(int, int, int, int)
+     * @param height - height of the canvas
+     * @param y - y-coordinate on the canvas
+     * @return B
+     */
+    private double calculateB(int height, int y){
         return ((be - ba) / height) * y + ba;
     }
 }
