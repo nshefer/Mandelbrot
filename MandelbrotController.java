@@ -15,36 +15,109 @@ import javafx.scene.layout.AnchorPane;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 /**
  * FXML Controller class
- *
- * @author Baerbel
  */
 public class MandelbrotController implements Initializable {
-    
+    /**
+     * Textfield for aa.
+     * Mandelbrot-Set should be "applied to an interval [Ca; Ce].
+     * aa is real part of left, opening border of Ca.
+     */
     @ FXML TextField tfAa;
+
+    /**
+     * Textfield for ba.
+     * Mandelbrot-Set should be "applied to an interval [Ca; Ce].
+     * ba is imaginary part of left, opening border of Ca.
+     */
     @ FXML TextField tfBa;
+
+    /**
+     * Textfield for ae.
+     * Mandelbrot-Set should be "applied to an interval [Ca; Ce].
+     * ae is real part of right, closing border of interval - Ce.
+     */
     @ FXML TextField tfAe;
+
+    /**
+     * Textfield for be.
+     * Mandelbrot-Set should be "applied to an interval [Ca; Ce].
+     * be is imaginary part of right, closing border of interval - Ce.
+     */
     @ FXML TextField tfBe;
-    @ FXML TextField tfDepth;   
+
+    /**
+     * Textfield for depth of iterations. (= "Iterationstiefe")
+     */
+    @ FXML TextField tfDepth;
+
+    /**
+     * Textfield for filename.
+     */
     @ FXML TextField tfFileName;
+
+    /**
+     * Button for drawing stuff from the user input.
+     */
     @ FXML Button btUebernehmen;
+
+    /**
+     * Button for drawing stuff via file.
+     */
     @ FXML Button btLaden;
+
+    /**
+     * Label for errorhandling.
+     */
     @ FXML Label lblErrorLoading;
+
+    /**
+     * Label for parameter errors.
+     */
     @ FXML Label lblErrorParams;
-    
+
+    /**
+     * Anchorpane for the drawing.
+     */
     @ FXML AnchorPane apMandelbrot;
+
+    /**
+     * Canvas to draw the stuff.
+     */
     @ FXML Canvas canvas;
+
+    /**
+     * Calculations that are needed to undertand, what point is in Mandelbrot-Set and what doesn't.
+     */
     private Calculations calculations = new Calculations();
+
+    /**
+     * Craphics include methods to draw the Mandelbrot-set.
+     */
     private Graphics graphics;// = new Graphics(canvas, calculations);
-    private GraphicsContext graphicsContext; //= canvas.getGraphicsContext2D();
+
+    /**
+     * Tool to draw on canvas.
+     */
+    private GraphicsContext graphicsContext;
+
+    /**
+     * Thread is needed to create "slide-show" (when loading pictures from the file.
+     */
     private Thread th;
+
+    /**
+     * Filename of loaded file.
+     */
     private String fileName;
-    
+
+    /**
+     * Setter for graphicsContext.
+     * @param graphicsContext
+     */
     public void setGraphicsContext(GraphicsContext graphicsContext){
         this.graphicsContext = graphicsContext;
     }
@@ -60,8 +133,12 @@ public class MandelbrotController implements Initializable {
         //canvas.widthProperty().bind(apMandelbrot.widthProperty());
         //canvas.heightProperty().bind(apMandelbrot.heightProperty());
         
-    }  
-    
+    }
+
+    /**
+     * Decides what has happened.
+     * @param ae actionEvent
+     */
     public void draw(ActionEvent ae){
         if(ae.getSource() == btUebernehmen){
             handleUebernehmen();
@@ -112,6 +189,10 @@ public class MandelbrotController implements Initializable {
         }
     }
     */
+
+    /**
+     * Reading parameters from the file and calling draw-function.
+     */
     public void readParameters(){
 
         ArrayList<Calculations> calcus = new ArrayList<>();
@@ -154,12 +235,20 @@ public class MandelbrotController implements Initializable {
 
     }
 
+    /**
+     * Calling draw-mehod when loading data from file.
+     * @param calcus Arrray-list of data for Mandelbrot-sets
+     */
     private void drawFromFile(ArrayList<Calculations> calcus){
             graphics.setCalculations(calcus.get(0));
             graphics.draw();//(calculations);
             calcus.add(calcus.remove(0));
     }
 
+    /**
+     * Allows to show 3 Mandelbrot-sets in a row.
+     * @param calcus Arrray-list of data for Mandelbrot-sets
+     */
     private void schedule(ArrayList<Calculations> calcus){
         Task task = new Task<Void>() {
             @Override
@@ -185,8 +274,9 @@ public class MandelbrotController implements Initializable {
     };
 
 
-
-
+    /**
+     * Drawing Mandelbrot-set with user-parameters
+     */
     @ FXML
     public void handleUebernehmen(){
 
@@ -213,14 +303,6 @@ public class MandelbrotController implements Initializable {
                 || depthString.isEmpty()){
             
             lblErrorParams.setText("Parameter fehlen");
-
-        if(!(stringIsDouble(aaString)
-                ||stringIsDouble(baString)
-                ||stringIsDouble(aeString)
-                ||stringIsDouble(beString)
-                ||stringIsNaturalNumber(depthString))){
-            lblErrorParams.setText("falsche Werte");
-        }
             
         }else{
         
@@ -236,6 +318,9 @@ public class MandelbrotController implements Initializable {
         }
     }
 
+    /**
+     * Drawing Mandelbrot-set with parameters from file.
+     */
     @ FXML
     public void handleLaden(){
         if (th != null && th.isAlive() && !th.isInterrupted()) {
@@ -252,10 +337,10 @@ public class MandelbrotController implements Initializable {
             readParameters();            
         }
     }
-    
+
     /**
-     * Ueberprueft ob der File existiert in Projekt Directory.
-     * @param fileName Filename mit Extension, den Pfad braucht man nicht
+     * Checks if file exists in project directory.
+     * @param fileName Filename mit Extension, without path
      * @return true or false
      */
     public static boolean checkIfFileExists(String fileName) {
@@ -280,72 +365,6 @@ public class MandelbrotController implements Initializable {
 
         }
         return fileExists;
-    }
-
-    public static boolean stringIsDouble(String string){
-
-        int pointCounter = 0;
-        char c = string.charAt(0);
-        Set<Character> numbers= new HashSet<>();
-
-        numbers.add('0');
-        numbers.add('1');
-        numbers.add('2');
-        numbers.add('3');
-        numbers.add('4');
-        numbers.add('5');
-        numbers.add('6');
-        numbers.add('7');
-        numbers.add('8');
-        numbers.add('9');
-
-        if(!(((c) == '-') || (numbers.contains(c)))){
-            return false;
-        }
-
-        for(int i = 1; i < string.length(); i++){
-            c = string.charAt(i);
-            if(c == '.'){
-                if(pointCounter ==1){
-                    return false;
-                } else {
-                    pointCounter++;
-                }
-            } else if (!(numbers.contains(c))) {
-                return false;
-            }
-        }
-
-        if(string.charAt(string.length() - 1) == '.'){
-            return false;
-        }
-
-        return true;
-    }
-
-    public static boolean stringIsNaturalNumber(String string){
-
-        char c = string.charAt(0);
-        Set<Character> numbers= new HashSet<>();
-
-        numbers.add('0');
-        numbers.add('1');
-        numbers.add('2');
-        numbers.add('3');
-        numbers.add('4');
-        numbers.add('5');
-        numbers.add('6');
-        numbers.add('7');
-        numbers.add('8');
-        numbers.add('9');
-
-        for(int i = 0; i < string.length(); i++){
-            if(!numbers.contains(string.charAt(i))){
-                return false;
-            }
-        }
-
-        return true;
     }
     
     
