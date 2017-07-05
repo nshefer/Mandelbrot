@@ -107,7 +107,7 @@ public class Graphics {
         // this should be right canvas height
         int height = (int) canvas.getHeight();
 
-        BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        //BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         // "Man wählt einen Punkt C aus der komplexen Ebene.
         // C ist nun eine komplexe Zahl,
