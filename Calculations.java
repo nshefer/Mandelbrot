@@ -127,8 +127,12 @@ public class Calculations {
                 return i;
             }
         }
-        // depth-1, because arrays are 0-based
-        return depth - 1;
+        if (depth!=0){
+            // depth-1, because arrays are 0-based
+            return depth - 1;
+        } else {
+            return 0;
+        }
     }
 
     /**
