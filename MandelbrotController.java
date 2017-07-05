@@ -26,68 +26,80 @@ public class MandelbrotController implements Initializable {
      * Mandelbrot-Set should be "applied to an interval [Ca; Ce].
      * aa is real part of left, opening border of Ca.
      */
-    @ FXML TextField tfAa;
+    @FXML
+    TextField tfAa;
 
     /**
      * Textfield for ba.
      * Mandelbrot-Set should be "applied to an interval [Ca; Ce].
      * ba is imaginary part of left, opening border of Ca.
      */
-    @ FXML TextField tfBa;
+    @FXML
+    TextField tfBa;
 
     /**
      * Textfield for ae.
      * Mandelbrot-Set should be "applied to an interval [Ca; Ce].
      * ae is real part of right, closing border of interval - Ce.
      */
-    @ FXML TextField tfAe;
+    @FXML
+    TextField tfAe;
 
     /**
      * Textfield for be.
      * Mandelbrot-Set should be "applied to an interval [Ca; Ce].
      * be is imaginary part of right, closing border of interval - Ce.
      */
-    @ FXML TextField tfBe;
+    @FXML
+    TextField tfBe;
 
     /**
      * Textfield for depth of iterations. (= "Iterationstiefe")
      */
-    @ FXML TextField tfDepth;
+    @FXML
+    TextField tfDepth;
 
     /**
      * Textfield for filename.
      */
-    @ FXML TextField tfFileName;
+    @FXML
+    TextField tfFileName;
 
     /**
      * Button for drawing stuff from the user input.
      */
-    @ FXML Button btUebernehmen;
+    @FXML
+    Button btUebernehmen;
 
     /**
      * Button for drawing stuff via file.
      */
-    @ FXML Button btLaden;
+    @FXML
+    Button btLaden;
 
     /**
      * Label for errorhandling.
      */
-    @ FXML Label lblErrorLoading;
+    @FXML
+    Label lblErrorLoading;
 
     /**
      * Label for parameter errors.
      */
-    @ FXML Label lblErrorParams;
+    @FXML
+    Label lblErrorParams;
 
     /**
      * Anchorpane for the drawing.
      */
-    @ FXML AnchorPane apMandelbrot;
+    @FXML
+    AnchorPane apMandelbrot;
 
     /**
      * Canvas to draw the stuff.
      */
-    @ FXML Canvas canvas;
+    @FXML
+    Canvas canvas;
 
     /**
      * Calculations that are needed to undertand, what point is in Mandelbrot-Set and what doesn't.
@@ -113,13 +125,14 @@ public class MandelbrotController implements Initializable {
      * Filename of loaded file.
      */
     private String fileName;
-    
+
 
     /**
      * Setter for graphicsContext.
-     * @param graphicsContext
+     *
+     * @param graphicsContext graphicsContext of canvas
      */
-    public void setGraphicsContext(GraphicsContext graphicsContext){
+    public void setGraphicsContext(GraphicsContext graphicsContext) {
         this.graphicsContext = graphicsContext;
     }
 
@@ -128,28 +141,29 @@ public class MandelbrotController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         graphics = new Graphics(canvas, calculations);
         graphicsContext = canvas.getGraphicsContext2D();
-      
+
     }
 
     /**
      * Decides what has happened.
+     *
      * @param ae actionEvent
      */
-    public void draw(ActionEvent ae){
-        if(ae.getSource() == btUebernehmen){
+    public void draw(ActionEvent ae) {
+        if (ae.getSource() == btUebernehmen) {
             handleUebernehmen();
-        }else if(ae.getSource() == btLaden){
+        } else if (ae.getSource() == btLaden) {
             handleLaden();
         }
     }
-  
+
     /**
      * Reading parameters from the file and calling draw-function.
      */
-    public void readParameters(){
+    public void readParameters() {
 
         ArrayList<Calculations> calcus = new ArrayList<>();
         calcus.add(new Calculations());
@@ -165,7 +179,7 @@ public class MandelbrotController implements Initializable {
 
         try (FileReader fr = new FileReader(fileName); BufferedReader br = new BufferedReader(fr)) {
 
-            for (int i = 0; i < 3; i++){
+            for (int i = 0; i < 3; i++) {
 
                 aaString = br.readLine();
                 baString = br.readLine();
@@ -193,23 +207,25 @@ public class MandelbrotController implements Initializable {
 
     /**
      * Calling draw-method when loading data from file.
+     *
      * @param calcus Array-list of data for Mandelbrot-sets
      */
-    private void drawFromFile(ArrayList<Calculations> calcus){
-            graphics.setCalculations(calcus.get(0));
-            graphics.draw();//(calculations);
-            calcus.add(calcus.remove(0));
+    private void drawFromFile(ArrayList<Calculations> calcus) {
+        graphics.setCalculations(calcus.get(0));
+        graphics.draw();//(calculations);
+        calcus.add(calcus.remove(0));
     }
 
     /**
      * Allows to show 3 Mandelbrot-sets in a row.
+     *
      * @param calcus Arrray-list of data for Mandelbrot-sets
      */
-    private void schedule(ArrayList<Calculations> calcus){
+    private void schedule(ArrayList<Calculations> calcus) {
         Task task = new Task<Void>() {
             @Override
             public Void call() throws Exception {
-                for (int i = 0; i <100; i++) {
+                for (int i = 0; i < 100; i++) {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -227,14 +243,16 @@ public class MandelbrotController implements Initializable {
         th.setDaemon(true);
         th.start();
 
-    };
+    }
+
+    ;
 
 
     /**
      * Drawing Mandelbrot-set with user-parameters
      */
-    @ FXML
-    public void handleUebernehmen(){
+    @FXML
+    public void handleUebernehmen() {
 
         //works only when first load from file
         if (th != null && th.isAlive() && !th.isInterrupted()) {
@@ -244,34 +262,34 @@ public class MandelbrotController implements Initializable {
         int hoehe = (int) canvas.getHeight();
         int breite = (int) canvas.getWidth();
         graphicsContext.clearRect(0, 0, breite, hoehe);
-        
-        
+
+
         String aaString = tfAa.getText();
         String baString = tfBa.getText();
         String aeString = tfAe.getText();
         String beString = tfBe.getText();
         String depthString = tfDepth.getText();
-        
+
         String[] params = {aaString, baString, aeString, beString};
         //System.out.println(aaString);
-        
-        for(int i = 0; i < 4; i++){
-            if(params[i].isEmpty()){
+
+        for (int i = 0; i < 4; i++) {
+            if (params[i].isEmpty()) {
                 lblErrorParams.setText("Parameter fehlen");
                 return;
             }
         }
-        
-        if(depthString.isEmpty()){
+
+        if (depthString.isEmpty()) {
             lblErrorParams.setText("Parameter fehlen");
             return;
-        }else if(!allFloats(params)){
+        } else if (!allFloats(params)) {
             lblErrorParams.setText("Falsche Eingabewerte");
             return;
-        }else{  
-            
+        } else {
+
             lblErrorParams.setText("Parameter uebernommen");
-      
+
             calculations.setAa(Double.parseDouble(aaString));
             calculations.setBa(Double.parseDouble(baString));
             calculations.setAe(Double.parseDouble(aeString));
@@ -279,7 +297,7 @@ public class MandelbrotController implements Initializable {
             calculations.setDepth(Integer.parseInt(depthString));
 
             graphics.setCalculations(calculations);
-            graphics.draw();         
+            graphics.draw();
         }
 
     }
@@ -287,30 +305,31 @@ public class MandelbrotController implements Initializable {
     /**
      * Drawing Mandelbrot-set with parameters from file.
      */
-    @ FXML
-    public void handleLaden(){
+    @FXML
+    public void handleLaden() {
         if (th != null && th.isAlive() && !th.isInterrupted()) {
             th.interrupt();
         }
         fileName = tfFileName.getText();
-        
-        if(fileName.equals("")){
-            lblErrorLoading.setText("Kein Dateiname eingegeben");           
-        } else if(!checkIfFileExists(fileName)){
-            lblErrorLoading.setText("Datei nicht gefunden");        
+
+        if (fileName.equals("")) {
+            lblErrorLoading.setText("Kein Dateiname eingegeben");
+        } else if (!checkIfFileExists(fileName)) {
+            lblErrorLoading.setText("Datei nicht gefunden");
         } else {
             lblErrorLoading.setText("");
-            readParameters();            
+            readParameters();
         }
     }
 
     /**
      * Checks if file exists in project directory.
+     *
      * @param fileName Filename mit Extension, without path
      * @return true or false
      */
     public static boolean checkIfFileExists(String fileName) {
-        boolean fileExists=false;
+        boolean fileExists = false;
         String path = null;
         try {
             path = new File("").getCanonicalPath();
@@ -335,22 +354,22 @@ public class MandelbrotController implements Initializable {
 
     /**
      * Checks if all entries of an array of strings can be parsed to Float
+     *
      * @param floatStrings - Array of floats
      * @return true, if every entry represents a float-number
      */
-    
-    public boolean allFloats(String[] floatStrings){
-        
-        for(int i = 0; i < floatStrings.length; i++){
-            if(!floatStrings[i].matches("^([+-]?(\\d+\\.)?\\d+)$")){
+
+    public boolean allFloats(String[] floatStrings) {
+
+        for (int i = 0; i < floatStrings.length; i++) {
+            if (!floatStrings[i].matches("^([+-]?(\\d+\\.)?\\d+)$")) {
                 return false;
             }
         }
-        
+
         return true;
-        
+
     }
 
-    
-    
+
 }

@@ -2,7 +2,7 @@ package mandelbrot;
 
 
 /**
- * Created by Nati on 22.06.2017.
+ * Calculations needed for Mandelbrot-set.
  */
 public class Calculations {
     /**
@@ -36,73 +36,82 @@ public class Calculations {
 
     /**
      * Getter for aa
+     *
      * @return aa
      */
-    public double getAa(){
+    public double getAa() {
         return aa;
     }
 
     /**
      * Getter for ba
+     *
      * @return ba
      */
-    public double getBa(){
+    public double getBa() {
         return ba;
     }
 
     /**
      * Getter for ae
+     *
      * @return ae
      */
-    public double getAe(){
+    public double getAe() {
         return ae;
     }
 
     /**
      * Getter for be
+     *
      * @return be
      */
-    public double getBe(){
+    public double getBe() {
         return be;
     }
 
     /**
      * Setter for aa
+     *
      * @param aa - real part of ca
      */
-    public void setAa(double aa){
+    public void setAa(double aa) {
         this.aa = aa;
     }
 
     /**
      * Setter for ba
+     *
      * @param ba - imaginary part of ca
      */
-    public void setBa(double ba){
+    public void setBa(double ba) {
         this.ba = ba;
     }
 
     /**
      * Setter for ae
+     *
      * @param ae - real part of ce
      */
-    public void setAe(double ae){
+    public void setAe(double ae) {
         this.ae = ae;
     }
 
     /**
      * Setter for be
+     *
      * @param be - imaginary part of ce
      */
-    public void setBe(double be){
+    public void setBe(double be) {
         this.be = be;
     }
 
     /**
      * Setter for depth
+     *
      * @param depth - Iteration depth
      */
-    public void setDepth(int depth){
+    public void setDepth(int depth) {
         this.depth = depth;
     }
 
@@ -112,6 +121,10 @@ public class Calculations {
      * This will help us to make set colorful.
      * PS this function is simply "Nochmals die drei Schritte zusammengefasst, ergibt sich fuer das Verfahren: ..."
      *
+     * @param x      x-coordinate of pixel
+     * @param y      y-coordinate of pixel
+     * @param width  width of screen
+     * @param height height of screen
      * @return number of a color in which the point should be drawn (not color itself!)
      */
     public int isElement(int x, int y, int width, int height) {
@@ -127,7 +140,7 @@ public class Calculations {
                 return i;
             }
         }
-        if (depth!=0){
+        if (depth != 0) {
             // depth-1, because arrays are 0-based
             return depth - 1;
         } else {
@@ -137,21 +150,23 @@ public class Calculations {
 
     /**
      * A is a double number used in isElement(int, int, int, int)
+     *
      * @param width - Width of the canvas
-     * @param x - x-coordinate on the canvas
-     * @return A
+     * @param x     - x-coordinate on the canvas
+     * @return A real part of the point t
      */
-    private double calculateA(int width, int x){
+    private double calculateA(int width, int x) {
         return ((ae - aa) / width) * x + aa;
     }
 
     /**
      * B is a double number used in isElement(int, int, int, int)
+     *
      * @param height - height of the canvas
-     * @param y - y-coordinate on the canvas
-     * @return B
+     * @param y      - y-coordinate on the canvas
+     * @return B imaginary part of the point t
      */
-    private double calculateB(int height, int y){
+    private double calculateB(int height, int y) {
         return ((be - ba) / height) * y + ba;
     }
 }
