@@ -79,7 +79,11 @@ public class Graphics {
 
     }
     */
-    
+
+    /**
+     * sets colors seperatly for 3 ranges within the color-array
+     * @param depth - depth of recursion
+     */
     private void setColors(int depth){
         
         colors = new Color[depth];
