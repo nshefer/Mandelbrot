@@ -102,7 +102,7 @@ public class MandelbrotController implements Initializable {
     Canvas canvas;
 
     /**
-     * Calculations that are needed to undertand, what point is in Mandelbrot-Set and what doesn't.
+     * Calculations that are needed to understand, what point is in Mandelbrot-Set and what doesn't.
      */
     private Calculations calculations = new Calculations();
 
@@ -125,16 +125,6 @@ public class MandelbrotController implements Initializable {
      * Filename of loaded file.
      */
     private String fileName;
-
-
-    /**
-     * Setter for graphicsContext.
-     *
-     * @param graphicsContext graphicsContext of canvas
-     */
-    public void setGraphicsContext(GraphicsContext graphicsContext) {
-        this.graphicsContext = graphicsContext;
-    }
 
     /**
      * Initializes the controller class.
@@ -212,7 +202,7 @@ public class MandelbrotController implements Initializable {
      */
     private void drawFromFile(ArrayList<Calculations> calcus) {
         graphics.setCalculations(calcus.get(0));
-        graphics.draw();//(calculations);
+        graphics.draw();
         calcus.add(calcus.remove(0));
     }
 
@@ -245,9 +235,6 @@ public class MandelbrotController implements Initializable {
 
     }
 
-    ;
-
-
     /**
      * Drawing Mandelbrot-set with user-parameters
      */
@@ -271,7 +258,6 @@ public class MandelbrotController implements Initializable {
         String depthString = tfDepth.getText();
 
         String[] params = {aaString, baString, aeString, beString};
-        //System.out.println(aaString);
 
         for (int i = 0; i < 4; i++) {
             if (params[i].isEmpty()) {
@@ -334,7 +320,7 @@ public class MandelbrotController implements Initializable {
         try {
             path = new File("").getCanonicalPath();
         } catch (IOException ioEx) {
-            //do smth
+            ioEx.printStackTrace();
         }
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();

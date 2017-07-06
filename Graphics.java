@@ -4,10 +4,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
-
-import java.awt.image.BufferedImage;
-//import java.util.Random;
-
 import static javafx.scene.paint.Color.*;
 
 
@@ -106,8 +102,6 @@ public class Graphics {
 
         int width = (int) canvas.getWidth();
         int height = (int) canvas.getHeight();
-
-        //BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         // "Man wählt einen Punkt C aus der komplexen Ebene.
         // C ist nun eine komplexe Zahl,
