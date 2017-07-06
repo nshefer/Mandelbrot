@@ -69,6 +69,10 @@ public class Calculations {
     public double getBe() {
         return be;
     }
+    
+    public int getDepth(){
+        return depth;
+    }
 
     /**
      * Setter for aa
