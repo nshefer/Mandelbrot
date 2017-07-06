@@ -99,61 +99,19 @@ public class Graphics {
         for(int i = b2; i < depth; i++){
             colors[i] = colorGradient(i, b2, depth, 2);
         }
-        
-        /*
-        double rf;
-        double gf;
-        double bf; 
-            
-        int r;
-        int g;
-        int b;
-            
-        for(int i = 0; i < depth/3; i++){
-            
-            rf = (double)i / ((double)depth/3);
-            gf = 1-rf;
-            bf = 0; 
-            
-            r = (int)(255*rf);
-            g = (int)(255*gf);
-            b = (int)(255*bf);
-                       
-            colors[i] = Color.rgb(r,g,b);
-        }
-        
-        for(int i = 0; i < depth/3; i++){
-            
-            gf = (double)i / ((double)depth/3);
-            bf = 1-gf;
-            rf = 0; 
-            
-            r = (int)(255*rf);
-            g = (int)(255*gf);
-            b = (int)(255*bf);
-                       
-            colors[i + depth/3] = Color.rgb(r,g,b);
-        }
-        
-        for(int i = 0; i < depth/3; i++){
-            
-            bf = (double)i / ((double)depth/3);
-            rf = 1-bf;
-            gf = 0; 
-            
-            r = (int)(255*rf);
-            g = (int)(255*gf);
-            b = (int)(255*bf);
-                       
-            colors[i + 2*depth/3] = Color.rgb(r,g,b);
-        }
-        
-        if(depth > 2)colors[depth-2] = Color.rgb(1,1,1);
-        if(depth > 2)colors[depth-1] = Color.rgb(1,1,1);
-        */
+
     }
-    
-    private Color colorGradient(int i, int lower, int higher, int bereich){
+
+    /**
+     * calculates a color for a given index i between upper and lower
+     *
+     * @param i - index in color-array
+     * @param lower - lower bound for this gradient
+     * @param higher - upper bound for this gradient
+     * @param range - index for different ranges in color-array
+     * @return Color of color-array index i
+     */
+    private Color colorGradient(int i, int lower, int higher, int range){
         
         Color result;
         
@@ -163,11 +121,11 @@ public class Graphics {
         int c1 = (int)(255*ratio1);
         int c2 = (int)(255*ratio2);
         
-        if(bereich == 0){
+        if(range == 0){
             return (Color.rgb(c2, c2-c2/4, c2));
-        }else if(bereich == 1){
+        }else if(range == 1){
             return (Color.rgb(c2, c2-c2/4, c2));
-        }else if(bereich == 2){
+        }else if(range == 2){
             return (Color.rgb(c2, c2-c2/4, c2));
         } else {
             return (Color.rgb(1,1,1));
